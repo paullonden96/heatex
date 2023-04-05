@@ -5,7 +5,7 @@ flowboiling thermodynamic calculations for an ventilation evaporator:
   - heat transfer for air (forced convektion) by Plank [2]
   - heat transfer flow boiling microfinned by Chamra [3] and Thome [4]
 
-# only tested for ammonia and low evaporation temperatures 
+# calculation of alpha_i (heat transfer inside) 
 ``` python
 """ Example: """
 
@@ -36,4 +36,28 @@ plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left', borderaxespad=0.)
 plt.title(f'R717; t_sat={te}°C; q={q/1000}kW/m² Glattrohr')
 plt.grid(True)
 ```
+# calculation of heat transfer outside 
+## making a geometrie object of the evaporator 
+```python
+t_R = 0.004 # Lamellenteilung [m]
+sigma_R = 0.00025 # Lamellendicke [m]
+di = 0.0155 # Innendurchmesser Grundrohr [m]
+da = 0.0165 # Außendurchmesser Grundrohr [m]
+s = 0.001 # Wandstärke Grundrohr [m]
+sq = 0.05 # Abstand Rohrachsen Verdampferrohre senkrecht [m]
+sl = 0.05 # Abstand Rohrachsen Verdampferrohre waagerecht [m]
+i_R = 12 # Anzahl Rohrreihen
+i_Q = 4 # Anzahl Rohre pro Rohrreihe
+z = 6 # parallelgeschaltete Rohreihen
+Al = 1.2 # Fläche Ventilatorkanal [m²]
+R_p = 10*-6 # technisch glatte Rohre?
+L = 2 # Rohrlänge [m] --> Teilsegmente für die alpha berechnet werden soll
+lR = 220 # Wärmeleitfähigkeit Rippe --> Alu [W/m²K]
+lG = 16 # Wärmeleitfähigkeit Grundrohr --> Stahl [W/m²K]
+m = 15 # Massenstromdichte [kg/m²s]
+tg = te # Grundrohrtemperatur tg = te vereinfacht angenommen
+tl = -18 # air temperatur entry [°C]
+phi_i = 0.91 # relative air humidity [-]
+Vl = 10000 # air flow rate [m³/h]
+
 
